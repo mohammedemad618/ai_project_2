@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f5f6f8;
-  --ink: #1a2433;
-  --ink-soft: #233146;
-  --muted: #5a6a80;
-  --accent: #2f6bff;
-  --accent-2: #1e4bbf;
-  --accent-3: #8fb0ff;
-  --accent-4: #2f6bff;
-  --panel: rgba(255, 255, 255, 0.82);
-  --panel-strong: #eef2f7;
-  --stroke: #dfe3ea;
-  --stroke-strong: #cfd6df;
-  --shadow: 0 24px 60px rgba(17, 18, 20, 0.14);
-  --shadow-soft: 0 18px 36px rgba(17, 18, 20, 0.1);
-  --glow: 0 0 0 1px rgba(17, 18, 20, 0.06), 0 18px 40px rgba(17, 18, 20, 0.1);
-  --glow-strong: 0 18px 36px rgba(47, 107, 255, 0.2);
-  --ring: 0 0 0 3px rgba(47, 107, 255, 0.25);
+  --canvas: #f8f3ea;
+  --ink: #1f2a36;
+  --ink-soft: #2f3d4b;
+  --muted: #5c6a78;
+  --accent: #2a4b6b;
+  --accent-2: #2f6d5a;
+  --accent-3: #c5d5e3;
+  --accent-4: #a35b2f;
+  --panel: rgba(255, 253, 248, 0.92);
+  --panel-strong: #f1ebe2;
+  --stroke: #d9d2c8;
+  --stroke-strong: #c7c0b5;
+  --shadow: 0 18px 40px rgba(31, 42, 54, 0.12);
+  --shadow-soft: 0 10px 24px rgba(31, 42, 54, 0.08);
+  --glow: 0 0 0 1px rgba(31, 42, 54, 0.05), 0 12px 24px rgba(31, 42, 54, 0.08);
+  --glow-strong: 0 10px 24px rgba(42, 75, 107, 0.2);
+  --ring: 0 0 0 3px rgba(42, 75, 107, 0.22);
 }
 
 @theme inline {
@@ -43,19 +43,31 @@ body {
   font-family: var(--font-body);
   line-height: 1.5;
   background:
-    radial-gradient(circle at 18% 12%, rgba(143, 176, 255, 0.25), transparent 48%),
-    radial-gradient(circle at 82% 18%, rgba(173, 182, 196, 0.35), transparent 52%),
-    radial-gradient(circle at 50% 80%, rgba(143, 176, 255, 0.14), transparent 58%),
-    linear-gradient(160deg, #f5f6f8 0%, #f8f9fb 48%, #eff2f6 100%);
+    radial-gradient(circle at 10% 8%, rgba(42, 75, 107, 0.08), transparent 50%),
+    radial-gradient(circle at 88% 16%, rgba(47, 109, 90, 0.08), transparent 55%),
+    linear-gradient(180deg, #faf6ef 0%, #f1ebe2 100%);
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(17, 18, 20, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.35;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(31, 42, 54, 0.035),
+      rgba(31, 42, 54, 0.035) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(31, 42, 54, 0.025),
+      rgba(31, 42, 54, 0.025) 1px,
+      transparent 1px,
+      transparent 26px
+    );
+  opacity: 0.25;
   pointer-events: none;
   mix-blend-mode: multiply;
   z-index: -1;
@@ -71,7 +83,8 @@ h3,
 h4,
 h5 {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .mono {
@@ -86,25 +99,30 @@ h5 {
 }
 
 ::selection {
-  background: rgba(47, 107, 255, 0.25);
+  background: rgba(42, 75, 107, 0.2);
 }
 
 @layer components {
   .surface {
     background: var(--panel);
     border: 1px solid var(--stroke);
-    border-radius: 28px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
-    backdrop-filter: blur(12px);
+    backdrop-filter: none;
     position: relative;
   }
 
   .card {
-    background: #fdfdff;
+    background: #fffdf8;
     border: 1px solid var(--stroke);
-    border-radius: 22px;
+    border-radius: 16px;
     box-shadow: var(--glow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-soft);
+    border-color: var(--stroke-strong);
   }
 
   .card-strong {
@@ -115,12 +133,12 @@ h5 {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 999px;
+    border-radius: 8px;
     border: 1px solid var(--stroke);
-    background: #eef1f6;
-    padding: 4px 12px;
-    font-size: 12px;
-    letter-spacing: 0.02em;
+    background: #f2ede5;
+    padding: 4px 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
@@ -129,25 +147,25 @@ h5 {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-radius: 999px;
-    padding: 10px 18px;
+    border-radius: 10px;
+    padding: 10px 16px;
     border: 1px solid var(--stroke);
     font-weight: 600;
     color: var(--ink);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
   }
 
   .btn-primary {
     background: var(--accent);
-    color: #f5f7ff;
+    color: #f7f6f2;
     border-color: var(--accent);
     box-shadow: var(--glow-strong);
   }
 
   .btn-accent {
     background: var(--ink);
-    color: #f5f7ff;
+    color: #f7f6f2;
     border-color: var(--ink);
     box-shadow: var(--shadow-soft);
   }
@@ -158,26 +176,18 @@ h5 {
   }
 
   .btn-ghost:hover {
-    background: #eef1f6;
-    color: var(--accent-2);
+    background: #f1ece4;
+    color: var(--accent);
   }
 
   .btn-primary:hover {
-    background: var(--accent-2);
-    border-color: var(--accent-2);
+    background: #243f59;
+    border-color: #243f59;
   }
 
   .btn-accent:hover {
     background: var(--ink-soft);
     border-color: var(--ink-soft);
-  }
-
-  .btn:hover {
-    transform: translateY(-1px);
-  }
-
-  .btn:active {
-    transform: translateY(0);
   }
 
   .btn:disabled,
@@ -190,9 +200,9 @@ h5 {
   .input,
   .select,
   .textarea {
-    background: #fbfcff;
+    background: #fffaf3;
     border: 1px solid var(--stroke);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 8px 12px;
     font-size: 14px;
     color: var(--ink);
@@ -225,31 +235,31 @@ h5 {
   .nav-link[data-active="true"]::before {
     content: "";
     position: absolute;
-    left: 8px;
-    top: 8px;
-    bottom: 8px;
-    width: 3px;
+    left: 6px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
     border-radius: 999px;
-    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    background: var(--accent);
   }
 
   .tag {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 999px;
+    border-radius: 8px;
     padding: 4px 10px;
     border: 1px solid var(--stroke);
-    background: #eef2f7;
-    font-size: 11px;
+    background: #f2ede5;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
   }
 
   .progress-track {
     height: 8px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(31, 42, 54, 0.08);
     overflow: hidden;
   }
 

@@ -80,7 +80,7 @@ const RouteCanvas = ({
     context.clearRect(0, 0, width, height);
 
     if (showGrid) {
-      context.strokeStyle = "rgba(27, 24, 21, 0.06)";
+      context.strokeStyle = "rgba(31, 42, 54, 0.06)";
       context.lineWidth = 1;
       const step = 60;
       for (let x = padding; x < width - padding; x += step) {
@@ -99,10 +99,10 @@ const RouteCanvas = ({
 
     if (route && route.length > 1) {
       const gradient = context.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#2f6bff");
-      gradient.addColorStop(1, "#1e4bbf");
+      gradient.addColorStop(0, "#2a4b6b");
+      gradient.addColorStop(1, "#2f6d5a");
       context.strokeStyle = gradient;
-      context.lineWidth = 2.2;
+      context.lineWidth = 2.1;
       context.beginPath();
       route.forEach((index, i) => {
         const point = points[index];
@@ -121,11 +121,11 @@ const RouteCanvas = ({
       const isStart = index === startIndex;
       context.beginPath();
       context.arc(point.x, point.y, isStart ? 6 : 4, 0, Math.PI * 2);
-      context.fillStyle = isStart ? "#111214" : "#2f6bff";
+      context.fillStyle = isStart ? "#1f2a36" : "#2a4b6b";
       context.fill();
       if (isStart) {
         context.lineWidth = 2;
-        context.strokeStyle = "#8fb0ff";
+        context.strokeStyle = "#a35b2f";
         context.stroke();
       }
     });
@@ -187,7 +187,7 @@ const RouteCanvas = ({
       <canvas
         ref={canvasRef}
         height={height}
-        className={`h-full w-full rounded-2xl border border-[color:var(--stroke)] bg-white/60 ${cursorClass}`}
+        className={`h-full w-full rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel)] ${cursorClass}`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}

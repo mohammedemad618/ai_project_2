@@ -60,18 +60,18 @@ const ConvergenceChart = ({
               </linearGradient>
             ))}
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(17, 18, 20, 0.08)" />
-          <XAxis dataKey="iteration" tick={{ fontSize: 12 }} />
-          <YAxis tick={{ fontSize: 12 }} />
+          <CartesianGrid strokeDasharray="2 4" stroke="rgba(31, 42, 54, 0.12)" />
+          <XAxis dataKey="iteration" tick={{ fontSize: 12, fill: "#5c6a78" }} />
+          <YAxis tick={{ fontSize: 12, fill: "#5c6a78" }} />
           <Tooltip
             contentStyle={{
-              background: "rgba(255, 255, 255, 0.95)",
-              borderRadius: "12px",
-              border: "1px solid #dfe3ea",
+              background: "rgba(255, 253, 248, 0.96)",
+              borderRadius: "10px",
+              border: "1px solid #d9d2c8",
               fontSize: "12px",
             }}
           />
-          <Legend wrapperStyle={{ fontSize: 12 }} />
+          <Legend wrapperStyle={{ fontSize: 11 }} />
           {series.map((entry) => (
             <Area
               key={entry.id}

@@ -46,7 +46,7 @@ const ComparisonTable = ({
           </tr>
         </thead>
         <tbody className="divide-y divide-[color:var(--stroke)]">
-          <tr className="transition hover:bg-white/70">
+          <tr className="transition hover:bg-[color:var(--panel-strong)]">
             <td className="px-4 py-3 font-semibold">Simulated Annealing</td>
             <td className="px-4 py-3 mono">{sa.avg}</td>
             <td className="px-4 py-3 mono">{sa.best}</td>
@@ -54,7 +54,7 @@ const ComparisonTable = ({
             <td className="px-4 py-3 mono">{sa.std}</td>
             <td className="px-4 py-3 mono">{sa.runtime}</td>
           </tr>
-          <tr className="transition hover:bg-white/70">
+          <tr className="transition hover:bg-[color:var(--panel-strong)]">
             <td className="px-4 py-3 font-semibold">Harmony Search</td>
             <td className="px-4 py-3 mono">{hsa.avg}</td>
             <td className="px-4 py-3 mono">{hsa.best}</td>

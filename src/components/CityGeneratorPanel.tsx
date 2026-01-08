@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import useTspStore from "@/store/tspStore";
-import { parseCitiesFromCSV, parseCitiesFromJSON } from "@/lib/tsp";
+import { MIN_CITY_COUNT, parseCitiesFromCSV, parseCitiesFromJSON } from "@/lib/tsp";
 import type { Distribution } from "@/lib/tsp";
 import { useShallow } from "zustand/react/shallow";
 
@@ -55,8 +55,10 @@ const CityGeneratorPanel = ({
       return;
     }
 
-    if (parsed.length < 3) {
-      setImportError("Not enough valid city coordinates found.");
+    if (parsed.length < MIN_CITY_COUNT) {
+      setImportError(
+        `At least ${MIN_CITY_COUNT} valid city coordinates are required.`
+      );
       return;
     }
 
@@ -83,7 +85,7 @@ const CityGeneratorPanel = ({
         </div>
         <input
           type="range"
-          min={80}
+          min={MIN_CITY_COUNT}
           max={600}
           step={1}
           value={cityCount}

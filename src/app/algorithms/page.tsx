@@ -27,7 +27,7 @@ const AlgorithmsPage = () => {
           A quick glance at the active configuration for each algorithm.
         </p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-4">
+          <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-4">
             <span className="tag">SA</span>
             <h4 className="mt-3 text-sm font-semibold">Simulated Annealing</h4>
             <div className="mt-2 space-y-1 text-xs text-[color:var(--muted)]">
@@ -39,7 +39,7 @@ const AlgorithmsPage = () => {
               <p>Multiplier: {saSettings.reheatMultiplier}</p>
             </div>
           </div>
-          <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-4">
+          <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-4">
             <span className="tag">HSA</span>
             <h4 className="mt-3 text-sm font-semibold">Harmony Search</h4>
             <div className="mt-2 space-y-1 text-xs text-[color:var(--muted)]">

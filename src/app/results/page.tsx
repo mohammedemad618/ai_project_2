@@ -28,7 +28,7 @@ const ResultsPage = () => {
     .map((result) => ({
       id: result!.algorithm,
       label: result!.algorithm === "SA" ? "Simulated Annealing" : "Harmony Search",
-      color: result!.algorithm === "SA" ? "#2f6bff" : "#2a8f7c",
+      color: result!.algorithm === "SA" ? "#2a4b6b" : "#2f6d5a",
       data: result!.convergence,
     }));
 
@@ -65,16 +65,16 @@ const ResultsPage = () => {
           </span>
         </div>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
+          <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-[color:var(--muted)]">
               Best Distance
             </p>
             <p className="mono text-lg">
               {bestResult ? bestResult.bestDistance.toFixed(3) : "--"}
             </p>
           </div>
-          <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
+          <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-[color:var(--muted)]">
               Runtime
             </p>
             <p className="mono text-lg">
@@ -138,7 +138,7 @@ const ResultsPage = () => {
           {convergenceSeries.length ? (
             <ConvergenceChart series={convergenceSeries} height={300} />
           ) : (
-            <div className="rounded-2xl border border-dashed border-[color:var(--stroke)] bg-white/60 p-6 text-sm text-[color:var(--muted)]">
+            <div className="rounded-2xl border border-dashed border-[color:var(--stroke)] bg-[color:var(--panel)] p-6 text-sm text-[color:var(--muted)]">
               Run algorithms to generate convergence curves.
             </div>
           )}

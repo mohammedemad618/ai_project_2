@@ -31,7 +31,7 @@ const SliderField = ({
             <p className="text-xs text-[color:var(--muted)]">{hint}</p>
           ) : null}
         </div>
-        <span className="mono rounded-full border border-[color:var(--stroke)] bg-white/70 px-2 py-1 text-xs">
+        <span className="mono rounded-md border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] px-2 py-1 text-xs">
           {value}
         </span>
       </div>

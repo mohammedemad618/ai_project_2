@@ -5,6 +5,7 @@ import {
   defaultHSASettings,
   defaultSASettings,
   generateCities,
+  MIN_CITY_COUNT,
 } from "@/lib/tsp";
 import type { City, Distribution } from "@/lib/tsp";
 
@@ -46,6 +47,8 @@ export type TspStore = {
 const createPresetId = () =>
   `preset-${Date.now()}-${Math.floor(Math.random() * 1e5)}`;
 
+const clampCityCount = (count: number) => Math.max(MIN_CITY_COUNT, count);
+
 const initialCount = 150;
 const initialDistribution: Distribution = "clustered";
 const initialCities = generateCities(initialCount, initialDistribution);
@@ -62,10 +65,10 @@ const useTspStore = create<TspStore>()(
       presets: [],
       lastResults: {},
       history: { SA: [], HSA: [] },
-      setCityCount: (count) => set({ cityCount: count }),
+      setCityCount: (count) => set({ cityCount: clampCityCount(count) }),
       setDistribution: (distribution) => set({ distribution }),
       generateCities: (count, distribution) => {
-        const nextCount = count ?? get().cityCount;
+        const nextCount = clampCityCount(count ?? get().cityCount);
         const nextDistribution = distribution ?? get().distribution;
         set({
           cities: generateCities(nextCount, nextDistribution),
@@ -74,8 +77,10 @@ const useTspStore = create<TspStore>()(
           startIndex: 0,
         });
       },
-      setCities: (cities) =>
-        set({ cities, cityCount: cities.length, startIndex: 0 }),
+      setCities: (cities) => {
+        if (cities.length < MIN_CITY_COUNT) return;
+        set({ cities, cityCount: cities.length, startIndex: 0 });
+      },
       updateCity: (index, x, y) =>
         set((state) => ({
           cities: state.cities.map((city, i) =>

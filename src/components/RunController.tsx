@@ -8,7 +8,7 @@ import type {
   RunResult,
   SASettings,
 } from "@/lib/algorithms";
-import { randomRoute } from "@/lib/tsp";
+import { MIN_CITY_COUNT, randomRoute } from "@/lib/tsp";
 import RouteCanvas from "@/components/RouteCanvas";
 import ConvergenceChart from "@/components/ConvergenceChart";
 import useTspStore from "@/store/tspStore";
@@ -80,7 +80,7 @@ const RunController = () => {
   const saLastLiveTimeRef = useRef(0);
   const hsaLastLiveTimeRef = useRef(0);
 
-  const canRun = cities.length >= 3;
+  const canRun = cities.length >= MIN_CITY_COUNT;
 
   useEffect(() => {
     saWorkerRef.current = createWorker();
@@ -430,8 +430,8 @@ const RunController = () => {
     series.push({ id, label, color, data });
   };
 
-  buildSeries(saStatus, "SA", "Simulated Annealing", "#2f6bff");
-  buildSeries(hsaStatus, "HSA", "Harmony Search", "#2a8f7c");
+  buildSeries(saStatus, "SA", "Simulated Annealing", "#2a4b6b");
+  buildSeries(hsaStatus, "HSA", "Harmony Search", "#2f6d5a");
 
   const statusLabel = (status?: LiveStatus | null) => {
     if (!status) return "Idle";
@@ -441,9 +441,9 @@ const RunController = () => {
   };
 
   const statusTone = (status?: LiveStatus | null) => {
-    if (!status) return "bg-white/70";
-    if (status.running) return "bg-[color:var(--accent-3)]/40";
-    if (status.paused) return "bg-white/70";
+    if (!status) return "bg-[color:var(--panel-strong)]";
+    if (status.running) return "bg-[color:var(--accent-3)]";
+    if (status.paused) return "bg-[color:var(--panel-strong)]";
     return "bg-[color:var(--panel-strong)]";
   };
 
@@ -512,7 +512,7 @@ const RunController = () => {
             Lock iterations to smaller value
           </label>
         </div>
-        <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3 text-xs text-[color:var(--muted)]">
+        <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3 text-xs text-[color:var(--muted)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
@@ -539,7 +539,7 @@ const RunController = () => {
             Target iterations per second. Actual speed depends on dataset size.
           </p>
         </div>
-        <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3 text-xs text-[color:var(--muted)]">
+        <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3 text-xs text-[color:var(--muted)]">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span>Dataset: {cities.length} cities</span>
             <span>Start city: {startIndex + 1}</span>
@@ -598,7 +598,7 @@ const RunController = () => {
             />
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-5">
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Iteration
               </p>
@@ -606,7 +606,7 @@ const RunController = () => {
                 {saStatus ? `${saStatus.iteration}/${saStatus.iterations}` : "--"}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Best Distance
               </p>
@@ -614,7 +614,7 @@ const RunController = () => {
                 {statValue(saStatus ? formatDistance(saStatus.bestDistance) : "--")}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Temperature
               </p>
@@ -624,13 +624,13 @@ const RunController = () => {
                   : "--"}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Speed
               </p>
               <p className="mono text-base">{speedFor(saStatus)}</p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 ETA
               </p>
@@ -698,7 +698,7 @@ const RunController = () => {
             />
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-5">
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Iteration
               </p>
@@ -706,7 +706,7 @@ const RunController = () => {
                 {hsaStatus ? `${hsaStatus.iteration}/${hsaStatus.iterations}` : "--"}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Best Distance
               </p>
@@ -714,7 +714,7 @@ const RunController = () => {
                 {hsaStatus ? formatDistance(hsaStatus.bestDistance) : "--"}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Memory Updates
               </p>
@@ -722,13 +722,13 @@ const RunController = () => {
                 {hsaStatus?.memoryUpdates ?? "--"}
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 Speed
               </p>
               <p className="mono text-base">{speedFor(hsaStatus)}</p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                 ETA
               </p>
@@ -757,7 +757,7 @@ const RunController = () => {
             <ConvergenceChart series={series} height={260} />
           </div>
         ) : (
-          <div className="mt-4 rounded-2xl border border-dashed border-[color:var(--stroke)] bg-white/60 p-6 text-sm text-[color:var(--muted)]">
+          <div className="mt-4 rounded-2xl border border-dashed border-[color:var(--stroke)] bg-[color:var(--panel)] p-6 text-sm text-[color:var(--muted)]">
             Run an algorithm to visualize convergence.
           </div>
         )}

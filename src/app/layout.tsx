@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Space_Grotesk, Unbounded } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  IBM_Plex_Mono,
+  Source_Serif_4,
+} from "next/font/google";
 import AppShell from "@/components/AppShell";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const sourceSerif = Source_Serif_4({
   variable: "--font-body",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
-const unbounded = Unbounded({
+const cormorant = Cormorant_Garamond({
   variable: "--font-display",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${unbounded.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${sourceSerif.variable} ${cormorant.variable} ${plexMono.variable} antialiased`}
       >
         <AppShell>{children}</AppShell>
       </body>

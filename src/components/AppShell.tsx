@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useShallow } from "zustand/react/shallow";
+import { MIN_CITY_COUNT } from "@/lib/tsp";
 import useTspStore from "@/store/tspStore";
 import ProjectFooter from "@/components/ProjectFooter";
 
@@ -39,7 +40,7 @@ const AppShell = ({ children }: { children: ReactNode }) => {
     .sort((a, b) =>
       a!.createdAt > b!.createdAt ? -1 : a!.createdAt < b!.createdAt ? 1 : 0
     )[0];
-  const readiness = cities.length >= 3 ? "Ready" : "Waiting";
+  const readiness = cities.length >= MIN_CITY_COUNT ? "Ready" : "Waiting";
 
   return (
     <div className="min-h-screen text-[15px]">
@@ -75,8 +76,8 @@ const AppShell = ({ children }: { children: ReactNode }) => {
                     data-active={active}
                     className={`nav-link group rounded-2xl border px-3 py-2 transition ${
                       active
-                        ? "border-transparent bg-white shadow"
-                        : "border-[color:var(--stroke)] bg-white/40 hover:bg-white/80"
+                        ? "border-[color:var(--accent)] bg-[color:var(--panel)] shadow-sm"
+                        : "border-[color:var(--stroke)] bg-[color:var(--panel)] hover:bg-[color:var(--panel-strong)]"
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -89,7 +90,7 @@ const AppShell = ({ children }: { children: ReactNode }) => {
                 );
               })}
             </nav>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-4 text-xs text-[color:var(--muted)]">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-4 text-xs text-[color:var(--muted)]">
               <div className="flex items-center justify-between">
                 <span>Cities</span>
                 <span className="mono text-[color:var(--ink)]">
@@ -138,16 +139,16 @@ const AppShell = ({ children }: { children: ReactNode }) => {
                       ? pathname === item.href
                       : pathname.startsWith(item.href);
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                        active
-                          ? "bg-[color:var(--ink)] text-white"
-                          : "bg-white/70"
-                      }`}
-                    >
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                      active
+                        ? "bg-[color:var(--ink)] text-white"
+                        : "bg-[color:var(--panel-strong)]"
+                    }`}
+                  >
                       {item.label}
                     </Link>
                   );

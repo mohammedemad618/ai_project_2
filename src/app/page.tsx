@@ -32,7 +32,7 @@ const DashboardPage = () => {
     id: result!.algorithm,
     label:
       result!.algorithm === "SA" ? "Simulated Annealing" : "Harmony Search",
-    color: result!.algorithm === "SA" ? "#2f6bff" : "#2a8f7c",
+    color: result!.algorithm === "SA" ? "#2a4b6b" : "#2f6d5a",
     data: result!.convergence,
   }));
 
@@ -109,7 +109,7 @@ const DashboardPage = () => {
             {convergenceSeries.length ? (
               <ConvergenceChart series={convergenceSeries} height={260} />
             ) : (
-              <div className="rounded-2xl border border-dashed border-[color:var(--stroke)] bg-white/60 p-6 text-sm text-[color:var(--muted)]">
+              <div className="rounded-2xl border border-dashed border-[color:var(--stroke)] bg-[color:var(--panel)] p-6 text-sm text-[color:var(--muted)]">
                 Run SA or HSA to see convergence curves.
               </div>
             )}
@@ -127,28 +127,40 @@ const DashboardPage = () => {
           </div>
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <Link href="/cities" className="card border-0 bg-white/70 p-4">
+          <Link
+            href="/cities"
+            className="card border-0 bg-[color:var(--panel-strong)] p-4"
+          >
             <span className="tag">Step 1</span>
             <h3 className="mt-3 text-base font-semibold">Generate Cities</h3>
             <p className="mt-2 text-xs text-[color:var(--muted)]">
               Build a random or clustered dataset, then choose a start city.
             </p>
           </Link>
-          <Link href="/algorithms" className="card border-0 bg-white/70 p-4">
+          <Link
+            href="/algorithms"
+            className="card border-0 bg-[color:var(--panel-strong)] p-4"
+          >
             <span className="tag">Step 2</span>
             <h3 className="mt-3 text-base font-semibold">Tune Algorithms</h3>
             <p className="mt-2 text-xs text-[color:var(--muted)]">
               Adjust SA and HSA parameters and save presets.
             </p>
           </Link>
-          <Link href="/run" className="card border-0 bg-white/70 p-4">
+          <Link
+            href="/run"
+            className="card border-0 bg-[color:var(--panel-strong)] p-4"
+          >
             <span className="tag">Step 3</span>
             <h3 className="mt-3 text-base font-semibold">Run & Monitor</h3>
             <p className="mt-2 text-xs text-[color:var(--muted)]">
               Launch algorithms and observe live convergence.
             </p>
           </Link>
-          <Link href="/results" className="card border-0 bg-white/70 p-4">
+          <Link
+            href="/results"
+            className="card border-0 bg-[color:var(--panel-strong)] p-4"
+          >
             <span className="tag">Step 4</span>
             <h3 className="mt-3 text-base font-semibold">Analyze Results</h3>
             <p className="mt-2 text-xs text-[color:var(--muted)]">

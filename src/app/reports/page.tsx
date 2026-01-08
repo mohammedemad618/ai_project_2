@@ -131,7 +131,7 @@ const ReportsPage = () => {
             <p className="text-xs text-[color:var(--muted)]">
               {Math.round(progress * 100)}% complete
             </p>
-            <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3 text-xs text-[color:var(--muted)]">
+            <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3 text-xs text-[color:var(--muted)]">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>Dataset: {cities.length} cities</span>
                 <span>Start city: {startIndex + 1}</span>

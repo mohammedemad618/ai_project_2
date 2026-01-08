@@ -28,10 +28,10 @@ const MetricCard = ({
 
   return (
     <div
-      className="card reveal flex flex-col gap-2 border-l-4 p-4"
+      className="card reveal flex flex-col gap-2 border-l-2 p-4"
       style={{ borderLeftColor: accentBorder }}
     >
-      <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
+      <div className="flex items-center justify-between text-xs uppercase tracking-[0.12em] text-[color:var(--muted)]">
         <span>{label}</span>
         {icon ? <span>{icon}</span> : null}
       </div>

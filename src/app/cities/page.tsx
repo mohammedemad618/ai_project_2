@@ -41,19 +41,19 @@ const CitiesPage = () => {
           <div className="card p-5">
             <h3 className="text-lg">Dataset Summary</h3>
             <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+              <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                   Cities
                 </p>
                 <p className="mono text-lg">{cityCount}</p>
               </div>
-              <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3">
+              <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                   Distribution
                 </p>
                 <p className="mono text-lg">{distribution}</p>
               </div>
-              <div className="rounded-2xl border border-[color:var(--stroke)] bg-white/70 p-3 sm:col-span-2">
+              <div className="rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] p-3 sm:col-span-2">
                 <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                   Start City
                 </p>

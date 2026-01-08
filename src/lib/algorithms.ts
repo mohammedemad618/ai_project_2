@@ -140,10 +140,13 @@ export const createHSAState = (
   distanceMatrix?: DistanceMatrix
 ): HSAState => {
   const memory: Route[] = [];
+  const memorySize = Number.isFinite(settings.hms)
+    ? Math.max(1, Math.floor(settings.hms))
+    : 1;
   if (initialRoute) {
     memory.push(initialRoute);
   }
-  while (memory.length < settings.hms) {
+  while (memory.length < memorySize) {
     memory.push(randomRoute(cities.length, startIndex));
   }
 
@@ -181,35 +184,31 @@ const distanceForRoute = (
   return routeDistance(route, cities);
 };
 
-const findWorstIndex = (distances: number[], eliteCount: number) => {
-  if (distances.length <= 1) return 0;
-  const safeElite = Math.min(Math.max(eliteCount, 0), distances.length - 1);
-  if (safeElite === 0) {
-    let worstIndex = 0;
-    for (let i = 1; i < distances.length; i += 1) {
-      if (distances[i] > distances[worstIndex]) {
-        worstIndex = i;
-      }
-    }
-    return worstIndex;
-  }
+const clampEliteCount = (eliteCount: number, length: number) => {
+  if (!Number.isFinite(eliteCount) || length <= 1) return 0;
+  return Math.min(Math.max(Math.floor(eliteCount), 0), length - 1);
+};
 
-  const sorted = distances
-    .map((value, index) => ({ value, index }))
-    .sort((a, b) => a.value - b.value);
-  const protectedSet = new Set(
-    sorted.slice(0, safeElite).map((entry) => entry.index)
-  );
-  let worstIndex = sorted[sorted.length - 1].index;
-  let worstValue = distances[worstIndex];
-  for (let i = 0; i < distances.length; i += 1) {
-    if (protectedSet.has(i)) continue;
-    if (distances[i] > worstValue) {
-      worstValue = distances[i];
+const findWorstIndex = (distances: number[]) => {
+  let worstIndex = 0;
+  for (let i = 1; i < distances.length; i += 1) {
+    if (distances[i] > distances[worstIndex]) {
       worstIndex = i;
     }
   }
   return worstIndex;
+};
+
+const pickReplaceIndex = (distances: number[], eliteCount: number) => {
+  if (distances.length <= 1) return 0;
+  const safeElite = clampEliteCount(eliteCount, distances.length);
+  if (safeElite <= 0) return findWorstIndex(distances);
+
+  const sorted = distances
+    .map((value, index) => ({ value, index }))
+    .sort((a, b) => a.value - b.value);
+  const candidates = sorted.slice(safeElite).map((entry) => entry.index);
+  return candidates[Math.floor(Math.random() * candidates.length)];
 };
 
 export const stepHSA = (
@@ -236,11 +235,14 @@ export const stepHSA = (
     cities,
     distanceMatrix
   );
-  const worstIndex = findWorstIndex(state.memoryDistances, settings.eliteCount);
+  const replaceIndex = pickReplaceIndex(
+    state.memoryDistances,
+    settings.eliteCount
+  );
 
-  if (candidateDistance < state.memoryDistances[worstIndex]) {
-    state.memory[worstIndex] = candidate;
-    state.memoryDistances[worstIndex] = candidateDistance;
+  if (candidateDistance < state.memoryDistances[replaceIndex]) {
+    state.memory[replaceIndex] = candidate;
+    state.memoryDistances[replaceIndex] = candidateDistance;
     replaced = true;
   }
 

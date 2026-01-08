@@ -53,7 +53,7 @@ const PresetManager = () => {
           presets.map((preset) => (
             <div
               key={preset.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[color:var(--stroke)] bg-white/70 px-4 py-3 transition hover:-translate-y-[1px] hover:shadow"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[color:var(--stroke)] bg-[color:var(--panel-strong)] px-4 py-3 transition hover:shadow"
             >
               <div>
                 <p className="text-sm font-semibold">{preset.name}</p>

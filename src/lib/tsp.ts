@@ -10,6 +10,8 @@ export type Distribution = "random" | "clustered";
 
 export type Neighborhood = "swap" | "two-opt" | "insert";
 
+export const MIN_CITY_COUNT = 20;
+
 export const defaultSASettings = {
   initialTemperature: 1500,
   coolingRate: 0.988,
@@ -45,6 +47,11 @@ const shuffle = <T,>(items: T[]) => {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
+};
+
+const normalizeStartIndex = (startIndex: number, cityCount: number) => {
+  if (!Number.isFinite(startIndex) || cityCount <= 0) return 0;
+  return Math.min(Math.max(Math.floor(startIndex), 0), cityCount - 1);
 };
 
 export const generateCities = (count: number, distribution: Distribution): City[] => {
@@ -193,11 +200,13 @@ export const routeDistanceMatrix = (route: Route, matrix: DistanceMatrix) => {
 };
 
 export const randomRoute = (cityCount: number, startIndex: number) => {
+  if (cityCount <= 0) return [];
+  const safeStartIndex = normalizeStartIndex(startIndex, cityCount);
   const indices = Array.from({ length: cityCount }, (_, index) => index).filter(
-    (index) => index !== startIndex
+    (index) => index !== safeStartIndex
   );
   const shuffled = shuffle(indices);
-  return [startIndex, ...shuffled];
+  return [safeStartIndex, ...shuffled];
 };
 
 const pickIndex = (max: number) => 1 + Math.floor(Math.random() * (max - 1));
